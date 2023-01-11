@@ -10,15 +10,6 @@
       "department": "IT"
     },
     {
-      "id": 2,
-      "firstname": "Förnamn 2",
-      "lastname": "Efternamn 2",
-      "title": "Founder",
-      "phonenr": "123 456 789",
-      "company": "Onify",
-      "department": "IT"
-    },
-    {
       "id": 3,
       "firstname": "Förnamn 1",
       "lastname": "Efternamn 1",
@@ -50,15 +41,6 @@
       "firstname": "Förnamn 6",
       "lastname": "Efternamn 6",
       "title": "Founder",
-      "phonenr": "123 456 789",
-      "company": "Onify",
-      "department": "IT"
-    },
-    {
-      "id": 7,
-      "firstname": "Förnamn 7",
-      "lastname": "Efternamn 7",
-      "title": "Front end developer",
       "phonenr": "123 456 789",
       "company": "Onify",
       "department": "IT"

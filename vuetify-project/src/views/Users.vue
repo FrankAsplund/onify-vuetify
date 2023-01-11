@@ -1,77 +1,78 @@
 <template>
+    <v-app>
 
-<!-- <div class="grid">
-      <div v-for="post in posts" :key="post.id" class="for-class">
-        <div class="user-container">
-          <h1 class="user-h1">{{ post.id }}</h1>
-          <h3 class="user-h3">{{ post.firstname }} {{ post.lastname }}</h3>
-          <div class="user-text">Titel: {{ post.title }}</div>
-          <div class="user-text">Telefonnummer: {{ post.phonenr }}</div>
-          <div class="user-text">Bolag: {{ post.company }}</div>
-          <div class="user-text">Avdelning: {{ post.department }}</div>
-          <div class="user-text">Behörighet: {{ post.system }}</div>
-          <button class="user-button" @click="deleteData(post.id)">
-            Delete post
-          </button>
+        <div class="d-flex justify-center">
+            <v-text-field class=" w-50 mx-12"
+            variant="outlined"
+              type="text"
+              v-model.trim="search"
+              placeholder="Search for users..."
+              @keyup="getAllPosts">
+            </v-text-field>
         </div>
-      </div>
-    </div> -->
 
-
-
-    <v-card
-      class="mx-auto"
-      max-width="344"
-      variant="outlined"
-    >
-      <v-card-item>
-        <div>
-          <div class="text-overline mb-1">
-            OVERLINE
+        <div class="d-flex align-content-space-between flex-wrap ma-4 pa-2"
+        >
+            <v-card
+            v-for="post in posts" 
+            :key="post.id" 
+            class="ma-2 pa-2"
+            min-width="300"
+            variant="outlined"
+            >
+            <v-card-subtitle> {{ post.id }} </v-card-subtitle>
+            <v-card-item>
+            <div>
+                <div class="text-h6 mb-1"> {{ post.firstname }} {{ post.lastname }} </div>
+                
+                <div class="text-overline mb-1"> Titel: {{ post.title }} </div>
+          <!-- Byt ut alla rubriker mot symboler -->
+          <div class="text-caption">Telefonnummer: {{ post.phonenr }}</div>
+          <div class="text-caption">Bolag: {{ post.company }}</div>
+          <div class="text-caption">Avdelning: {{ post.department }}</div>
+          <div class="text-caption">Behörighet: blablabla</div>
           </div>
-          <div class="text-h6 mb-1">
-            Headline
-          </div>
-          <div class="text-caption">Greyhound divisely hello coldly fonwderfully</div>
+            </v-card-item>
+    <v-card-actions>
+        <v-btn 
+        variant="tonal"  
+        color="red"
+        @click="deleteData(post.id)"
+        > Delete user </v-btn>
+    </v-card-actions>
+        </v-card>
         </div>
-      </v-card-item>
-  
-      <v-card-actions>
-        <v-btn variant="outlined">
-          Button
-        </v-btn>
-      </v-card-actions>
-    </v-card>
-  </template>
+    </v-app>
+</template>
 
 <script>
-
 import axios from "axios";
 
 export default {
-  name: "Users",
-  components: {},
-  data() {
-    return {
-      posts: [],
-      /* search: "", */
+    name: "Users",
+    components: {},
+    data() {
+        return {
+            posts: [],
+            search: ""
     };
   },
   methods: {
-     getPosts() {
+     /* getPosts() {
       axios
         .get("http://localhost:8000/posts")
         .then((response) => {
           console.log(response.data);
+          this.posts = response.data;
         })
         .catch((error) => {
           console.log(error.message);
         });
-    },
+    }, */
 
 
     /* Deletes an entry in the database */
-    /* deleteData(id) {
+    deleteData(id) {
       if (
         confirm(
           "Are you sure you want to delete this user from the database? This choice is permanent and cannot be regretted."
@@ -79,16 +80,18 @@ export default {
       ) {
         axios
           .delete(`http://localhost:8000/posts/${id}`)
-          .then(this.getAllPosts())
+          .then((response) => {
+            this.posts = response.data;
+          })
           .catch(function (error) {
             console.log(error.response);
           });
       } else {
         return;
       }
-    }, */
+    },
 
-    /* getAllPosts() {
+    getAllPosts() {
       axios.get("http://localhost:8000/posts").then((response) => {
         if (this.search) {
           this.posts = response.data.filter(
@@ -104,20 +107,21 @@ export default {
               posts.company.toLowerCase().includes(this.search.toLowerCase()) ||
               posts.department
                 .toLowerCase()
-                .includes(this.search.toLowerCase()) ||
-              posts.system.toLowerCase().includes(this.search.toLowerCase())
+                .includes(this.search.toLowerCase())
           );
         } else {
           console.log(response.data);
           this.posts = response.data;
         }
       });
-    }, */
+    },
   },
+
   mounted() {
     console.log("Mounted");
-    /* this.getAllPosts(); */
-    this.getPosts();
-  },
+    this.getAllPosts();
+    /* this.getPosts(); */
+  }
+
 };
 </script>

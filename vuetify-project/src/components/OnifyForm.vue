@@ -1,4 +1,15 @@
 <template>
+    <div class="d-flex align-center flex-row mx-4 pa-2">
+      <v-card variant="tonal" class="mt-5 mb-8 rounded-sm" width="400">
+        <v-card-title>Skapa användare</v-card-title>
+      <v-card-text>
+        Här kan du skapa dina egna användare, 
+        komplett med namn, titel, företag, 
+        och allt annat du skulle tänka dig!
+      </v-card-text> 
+      </v-card>
+    </div>
+
     <div variant="outlined">
         <v-form v-model="valid">
     <v-container>
@@ -45,13 +56,26 @@
 
       <v-container fluid>
     <v-row>
-      <v-col cols="12">
-        <v-combobox
-          v-model="select"
-          :items="items"
-          label="Select a system you're authorized in"
-          multiple
-        ></v-combobox>
+      <!-- <v-col cols="12">
+        <v-autocomplete
+    label="Select a company"
+    v-model="select"
+    :items= "items"
+    item-title="name"
+    density="compact"
+    multiple
+  ></v-autocomplete>
+      </v-col> -->
+  <v-col cols="12">
+        <v-autocomplete
+    label="Select a system you're authorized in"
+    v-model="select"
+    :items= "items"
+    item-title="name"
+    density="compact"
+    multiple
+  ></v-autocomplete>
+
       </v-col>
       <v-col cols="12">
         <v-combobox
@@ -102,12 +126,8 @@
   export default {
     data: () => ({
         select: [],
-        items: [
-          'Programming',
-          'Design',
-          'Vue',
-          'Vuetify',
-        ],
+        items: [""],
+
       valid: false,
       firstname: '',
       lastname: '',
@@ -126,9 +146,39 @@
     }),
 
     methods: {
+
+      /*  async getPosts() {
+
+      const response = await fetch("http://localhost:8000/posts");
+      const data = await response.json();
+      this.items = data;
+      console.log(data);
+    }, */
+
+   async getAllSystems() {
+      const response = await fetch(
+        "https://oni-demo1-app.onify.net/api/v2/my/items/access-management?filter=tag:system",
+          {
+            headers: {
+              accept: "application/json",
+              authorization:
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOiJsaWEiLCJleHBpcmVkYXRlIjoiMjAyMy0wNC0zMFQwODo0NToyMC4wMDBaIiwiY2xpZW50Q29kZSI6Im9uaSIsImlhdCI6MTY3MTQzODE5MH0.0v8gGzhn5XQRswdeKF2AfGuCRh6EGj_HFQz2bupN5ao",
+            },
+          }
+        )
+        const data = await response.json();
+
+        for (let i = 0; i < data.records.length; i++) {
+            this.items[i] = data.records[i].name;
+}
+
+      for (let i = 0; i < data.records.length; i++) {
+          console.log(data.records[i].name);
+    }
+},
+
       async validate () {
         const { valid } = await this.$refs.form.validate()
-
         if (valid) alert('Form is valid')
       },
       reset () {
@@ -138,5 +188,11 @@
         this.$refs.form.resetValidation()
       },
     },
+
+    mounted() {
+    console.log("Mounted");
+    /* this.getPosts(); */
+    this.getAllSystems();
   }
+}
 </script>
