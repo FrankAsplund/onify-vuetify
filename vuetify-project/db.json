@@ -1,0 +1,139 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "firstname": "Förnamn 1",
+      "lastname": "Efternamn 1",
+      "title": "CEO",
+      "phonenr": "123 456 789",
+      "company": "Onify",
+      "department": "IT"
+    },
+    {
+      "id": 2,
+      "firstname": "Förnamn 2",
+      "lastname": "Efternamn 2",
+      "title": "Founder",
+      "phonenr": "123 456 789",
+      "company": "Onify",
+      "department": "IT"
+    },
+    {
+      "id": 3,
+      "firstname": "Förnamn 1",
+      "lastname": "Efternamn 1",
+      "title": "Front end developer",
+      "phonenr": "123 456 789",
+      "company": "Onify",
+      "department": "IT"
+    },
+    {
+      "firstname": "Frank",
+      "lastname": "Asplund",
+      "title": "Praktikant",
+      "phonenr": "0729067387",
+      "company": "Onify",
+      "department": "Front end",
+      "id": 4
+    },
+    {
+      "firstname": "Robert",
+      "lastname": "Lundsten",
+      "title": "CTO",
+      "phonenr": "00000000000000",
+      "company": "Test",
+      "department": "Test",
+      "id": 5
+    },
+    {
+      "id": 6,
+      "firstname": "Förnamn 6",
+      "lastname": "Efternamn 6",
+      "title": "Founder",
+      "phonenr": "123 456 789",
+      "company": "Onify",
+      "department": "IT"
+    },
+    {
+      "id": 7,
+      "firstname": "Förnamn 7",
+      "lastname": "Efternamn 7",
+      "title": "Front end developer",
+      "phonenr": "123 456 789",
+      "company": "Onify",
+      "department": "IT"
+    },
+    {
+      "id": 8,
+      "firstname": "Förnamn 8",
+      "lastname": "Efternamn 8",
+      "title": "CEO",
+      "phonenr": "123 456 789",
+      "company": "Onify",
+      "department": "IT"
+    },
+    {
+      "id": 9,
+      "firstname": "Förnamn 9",
+      "lastname": "Efternamn 9",
+      "title": "Founder",
+      "phonenr": "123 456 789",
+      "company": "Onify",
+      "department": "IT"
+    },
+    {
+      "id": 10,
+      "firstname": "Förnamn 10",
+      "lastname": "Efternamn 10",
+      "title": "Front end developer",
+      "phonenr": "123 456 789",
+      "company": "Onify",
+      "department": "IT"
+    },
+    {
+      "firstname": "Robin",
+      "lastname": "Asplund",
+      "title": "Praktikant",
+      "phonenr": "0729067387",
+      "company": "Onify",
+      "department": "Front end",
+      "id": 11
+    },
+    {
+      "firstname": "Maria",
+      "lastname": "Bergström",
+      "title": "CEO",
+      "phonenr": "00000000000000",
+      "company": "Test",
+      "department": "Test",
+      "id": 12
+    },
+    {
+      "id": 13,
+      "firstname": "Förnamn 13",
+      "lastname": "Efternamn 13",
+      "title": "Founder",
+      "phonenr": "123 456 789",
+      "company": "Onify",
+      "department": "IT"
+    },
+    {
+      "firstname": "Daniel",
+      "lastname": "Bladh",
+      "title": "Praktikant",
+      "phonenr": "0000000000",
+      "company": "Onify",
+      "department": "Front end",
+      "id": 15
+    },
+    {
+      "firstname": "Frank",
+      "lastname": "Asplund",
+      "title": "Praktikant",
+      "phonenr": "0729067387",
+      "company": "Min kommun Energi AB",
+      "department": "Front end",
+      "id": 17
+    }
+  ]
+}
