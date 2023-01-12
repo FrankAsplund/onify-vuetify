@@ -11,76 +11,107 @@
     </div>
 
     <div variant="outlined">
-        <v-form v-model="valid">
-    <v-container>
-      <v-row>
+        <v-form @submit.prevent="createUser">
+    <v-container fluid>
+      <v-row variant="outlined">
         <v-col
-          cols="12"
+          cols="6"
           md="4"
         >
           <v-text-field
-            v-model="firstname"
             :rules="nameRules"
-            :counter="10"
-            label="First name"
+            label="Förnamn"
             required
+            v-model="formData.firstname"
+            density="compact"
           ></v-text-field>
         </v-col>
 
         <v-col
-          cols="12"
+          cols="6"
           md="4"
         >
           <v-text-field
-            v-model="lastname"
+            v-model="formData.lastname"
             :rules="nameRules"
-            :counter="10"
-            label="Last name"
+            label="Efternamn"
             required
-          ></v-text-field>
-        </v-col>
-
-        <v-col
-          cols="12"
-          md="4"
-        >
-          <v-text-field
-            v-model="email"
-            :rules="emailRules"
-            label="E-mail"
-            required
+            density="compact"
           ></v-text-field>
         </v-col>
       </v-row>
+
+        <v-row>
+        <v-col
+          cols="6"
+          md="4"
+        >
+        <v-text-field
+            v-model="formData.title"
+            :rules="nameRules"
+            label="Titel"
+            required
+            density="compact"
+          ></v-text-field>
+          </v-col>
+
+          <v-col
+          cols="6"
+          md="4"
+        >
+        <v-text-field
+            v-model="formData.phonenr"
+            label="Telefon"
+            required
+            density="compact"
+          ></v-text-field>
+          </v-col>
+      </v-row>
+
     </v-container>
 
       <v-container fluid>
     <v-row>
-      <!-- <v-col cols="12">
+      <v-col cols="6" md="4">
         <v-autocomplete
-    label="Select a company"
-    v-model="select"
-    :items= "items"
+    label="Company"
+    :items= "companies"
+    v-model="company"
     item-title="name"
     density="compact"
-    multiple
+    height="100px"
+    return-object
   ></v-autocomplete>
-      </v-col> -->
-  <v-col cols="12">
+      </v-col>
+
+      <v-col cols="6">
+        <v-autocomplete
+    label="Department"
+    :items="company.tag"
+    v-model="tag"
+    item-title="tag"
+    density="compact"
+    
+    return-object
+  ></v-autocomplete>
+      </v-col>
+
+
+  <v-col cols="6">
         <v-autocomplete
     label="Select a system you're authorized in"
-    v-model="select"
     :items= "items"
+    v-model="formData.system"
     item-title="name"
     density="compact"
     multiple
   ></v-autocomplete>
 
       </v-col>
-      <v-col cols="12">
+      <v-col cols="6">
         <v-combobox
-          v-model="select"
-          label="I'm readonly"
+          v-model="formData.system"
+          label="Authorized Systems"
           chips
           multiple
           readonly
@@ -89,19 +120,12 @@
     </v-row>
   </v-container>
 
-      <v-checkbox
-        v-model="checkbox"
-        :rules="[v => !!v || 'You must agree to continue!']"
-        label="Do you agree?"
-        required
-      ></v-checkbox>
-  
       <v-btn
         color="success"
         class="mr-4"
-        @click="validate"
+        type="submit"
       >
-        Validate
+        Submit
       </v-btn>
   
       <v-btn
@@ -125,35 +149,63 @@
 <script>
   export default {
     data: () => ({
-        select: [],
-        items: [""],
+      formData: {
+        firstname: "",
+        lastname: "",
+        title: "",
+        phonenr: "",
+        company: "",
+        department: "",
+        system: null,
+      },
+
+        /* systems: [], */
+        items: [],
+        companies: [],
+        tag: [],
+        company: {
+          name: "",
+          tag: "",
+        },
 
       valid: false,
-      firstname: '',
-      lastname: '',
       nameRules: [
         v => !!v || 'Name is required',
         v => v.length <= 10 || 'Name must be less than 10 characters',
       ],
-      email: '',
-      emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+/.test(v) || 'E-mail must be valid',
-      ],
-
       checkbox: false,
-      
     }),
 
     methods: {
 
-      /*  async getPosts() {
-
-      const response = await fetch("http://localhost:8000/posts");
-      const data = await response.json();
-      this.items = data;
-      console.log(data);
-    }, */
+      async createUser() {
+      const formData = {
+        ...this.formData,
+        company: this.company.name,
+        department: this.company.tag,
+      };
+      try {
+        // send POST request to create object endpoint
+        const response = await fetch("http://localhost:8000/posts", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+        //check for the status of the response
+        if (!response.ok) {
+          throw new Error(`Error ${response.status}`);
+        }
+        // object was successfully created, do something with the response data
+      } catch (error) {
+        // there was an error creating the object
+        console.log(error);
+      }
+      /* console.log(response); */
+      document.forms[0].reset();
+      window.scrollTo(0, 0);
+    },
 
    async getAllSystems() {
       const response = await fetch(
@@ -170,11 +222,31 @@
 
         for (let i = 0; i < data.records.length; i++) {
             this.items[i] = data.records[i].name;
-}
+        }
+          console.log(data.records);
+      },
 
-      for (let i = 0; i < data.records.length; i++) {
-          console.log(data.records[i].name);
-    }
+async getAllCompanies() {
+      const response = await fetch(
+        "https://oni-demo1-app.onify.net/api/v2/my/options/tags/company?pagesize=50&sort=name&sortby=asc",
+          {
+            headers: {
+              accept: "application/json",
+              authorization:
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOiJsaWEiLCJleHBpcmVkYXRlIjoiMjAyMy0wNC0zMFQwODo0NToyMC4wMDBaIiwiY2xpZW50Q29kZSI6Im9uaSIsImlhdCI6MTY3MTQzODE5MH0.0v8gGzhn5XQRswdeKF2AfGuCRh6EGj_HFQz2bupN5ao",
+            },
+          }
+        )
+        const data = await response.json();
+        this.companies = data.records;
+
+        console.log(data.records.tag);
+        console.log(data.records);
+
+        /* for (let i = 0; i < data.records.length; i++) {
+            this.tags[i] = data.records[i].tag;
+            console.log(data.records[i].tag);
+        } */
 },
 
       async validate () {
@@ -191,7 +263,7 @@
 
     mounted() {
     console.log("Mounted");
-    /* this.getPosts(); */
+    this.getAllCompanies();
     this.getAllSystems();
   }
 }

@@ -91,15 +91,6 @@
       "id": 12
     },
     {
-      "id": 13,
-      "firstname": "Förnamn 13",
-      "lastname": "Efternamn 13",
-      "title": "Founder",
-      "phonenr": "123 456 789",
-      "company": "Onify",
-      "department": "IT"
-    },
-    {
       "firstname": "Daniel",
       "lastname": "Bladh",
       "title": "Praktikant",
@@ -116,6 +107,63 @@
       "company": "Min kommun Energi AB",
       "department": "Front end",
       "id": 17
+    },
+    {
+      "firstname": "Test",
+      "lastname": "Test",
+      "title": "Test",
+      "phonenr": "Test",
+      "company": "Min kommun Fastigheter AB",
+      "department": "access-management",
+      "system": [
+        "",
+        "Galadriel"
+      ],
+      "id": 18
+    },
+    {
+      "firstname": "test",
+      "lastname": "Test",
+      "title": "Test",
+      "phonenr": "Test",
+      "company": "Rg19",
+      "department": "consulting",
+      "system": [
+        "",
+        "Galadriel"
+      ],
+      "id": 19
+    },
+    {
+      "firstname": "Test",
+      "lastname": "Test",
+      "title": "Test",
+      "phonenr": "Test",
+      "company": "Socialförvaltning",
+      "department": [
+        "access-management",
+        "company"
+      ],
+      "system": [
+        "",
+        "Galadriel"
+      ],
+      "id": 20
+    },
+    {
+      "firstname": "test",
+      "lastname": "test",
+      "title": "test",
+      "phonenr": "test",
+      "company": "Barn- och utbildningsförvaltning",
+      "department": [
+        "access-management",
+        "company"
+      ],
+      "system": [
+        "Pippin"
+      ],
+      "id": 21
     }
   ]
 }

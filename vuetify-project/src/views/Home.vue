@@ -22,15 +22,5 @@ import OnifyForm from "../components/OnifyForm.vue"
 </script>
 
 <style>
-a {
-  text-decoration: none !important;
-  background-color: transparent !important;
-  text-decoration-color: white !important;
-  color: white;
-}
 
-a:visited { 
- text-decoration: none !important;
- color: white; 
-}
 </style>

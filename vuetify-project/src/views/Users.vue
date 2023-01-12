@@ -1,8 +1,8 @@
 <template>
     <v-app>
-
         <div class="d-flex justify-center">
-            <v-text-field class=" w-50 mx-12"
+            <v-text-field class="w-50 mx-12"
+            prepend-icon="mdi-magnify"
             variant="outlined"
               type="text"
               v-model.trim="search"
@@ -18,7 +18,9 @@
             :key="post.id" 
             class="ma-2 pa-2"
             min-width="300"
+            max-width="300"
             variant="outlined"
+            :elevation="12"
             >
             <v-card-subtitle> {{ post.id }} </v-card-subtitle>
             <v-card-item>
@@ -30,7 +32,7 @@
           <div class="text-caption">Telefonnummer: {{ post.phonenr }}</div>
           <div class="text-caption">Bolag: {{ post.company }}</div>
           <div class="text-caption">Avdelning: {{ post.department }}</div>
-          <div class="text-caption">Behörighet: blablabla</div>
+          <div class="text-caption">Behörighet: {{ post.system }}</div>
           </div>
             </v-card-item>
     <v-card-actions>
@@ -46,7 +48,7 @@
 </template>
 
 <script>
-import axios from "axios";
+/* import axios from "axios"; */
 
 export default {
     name: "Users",
@@ -58,43 +60,46 @@ export default {
     };
   },
   methods: {
-     /* getPosts() {
-      axios
-        .get("http://localhost:8000/posts")
-        .then((response) => {
-          console.log(response.data);
-          this.posts = response.data;
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
-    }, */
 
-
-    /* Deletes an entry in the database */
-    deleteData(id) {
+    async deleteData(id) {
       if (
         confirm(
           "Are you sure you want to delete this user from the database? This choice is permanent and cannot be regretted."
         ) == true
       ) {
-        axios
-          .delete(`http://localhost:8000/posts/${id}`)
-          .then((response) => {
-            this.posts = response.data;
-          })
-          .catch(function (error) {
-            console.log(error.response);
-          });
-      } else {
-        return;
+        try {
+          const response = await fetch(`http://localhost:8000/posts/${id}`, 
+          { 
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+        )
+        if (!response.ok) {
+          throw new Error(`Error ${response.status}`);
+        }
+        // object was successfully created, do something with the response data
+      } catch (error) {
+        // there was an error creating the object
+        console.log(error);
       }
-    },
+      
+      console.log("Delete succesful", `Post number ID: ${id} is now deleted`);
+      this.getAllPosts();
+      
+    } else {
+      return;
+      }
+    }, 
 
-    getAllPosts() {
-      axios.get("http://localhost:8000/posts").then((response) => {
+    async getAllPosts() {
+      const response = await fetch(
+        "http://localhost:8000/posts"
+        )
+        const data = await response.json();
         if (this.search) {
-          this.posts = response.data.filter(
+          this.posts = data.filter(
             (posts) =>
               posts.firstname
                 .toLowerCase()
@@ -110,18 +115,15 @@ export default {
                 .includes(this.search.toLowerCase())
           );
         } else {
-          console.log(response.data);
-          this.posts = response.data;
+          console.log(data);
+          this.posts = data;
         }
-      });
     },
   },
 
   mounted() {
     console.log("Mounted");
     this.getAllPosts();
-    /* this.getPosts(); */
   }
-
 };
 </script>
