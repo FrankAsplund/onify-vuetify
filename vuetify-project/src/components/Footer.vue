@@ -13,16 +13,10 @@
               ></v-btn>
             </div>
         
-            <div class="pt-0">
-              Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet. 
-              Mauris cursus commodo interdum. 
-              Praesent ut risus eget metus luctus accumsan id ultrices nunc. 
-            </div>
-        
             <v-divider></v-divider>
         
             <div>
-              {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+              {{ new Date().getFullYear() }} — <strong>Vuetify, OnifyForms</strong>
             </div>
           </v-footer>
     </v-app>

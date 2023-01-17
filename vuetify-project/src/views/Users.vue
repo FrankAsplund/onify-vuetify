@@ -33,6 +33,7 @@
           <div class="text-caption">Bolag: {{ post.company }}</div>
           <div class="text-caption">Avdelning: {{ post.department }}</div>
           <div class="text-caption">Behörighet: {{ post.system }}</div>
+          <div class="text-caption">Skapad: {{ post.date }}</div>
           </div>
             </v-card-item>
     <v-card-actions>

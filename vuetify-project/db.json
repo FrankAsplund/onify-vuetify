@@ -151,19 +151,135 @@
       "id": 20
     },
     {
-      "firstname": "test",
-      "lastname": "test",
-      "title": "test",
-      "phonenr": "test",
-      "company": "Barn- och utbildningsförvaltning",
+      "firstname": "Test 5",
+      "lastname": "Test 5",
+      "title": "Test 5",
+      "phonenr": "123125",
+      "company": "Socialförvaltning",
+      "department": "company",
+      "system": [
+        "Galadriel"
+      ],
+      "id": 27
+    },
+    {
+      "firstname": "Test1",
+      "lastname": "Test1",
+      "title": "Test1",
+      "phonenr": "123456789",
+      "company": "StrongPoint",
       "department": [
-        "access-management",
+        "consulting",
+        "nor",
         "company"
       ],
       "system": [
+        "Boromir"
+      ],
+      "date": "2023-01-16T09:11:46.795Z",
+      "id": 30
+    },
+    {
+      "firstname": "TestDate3",
+      "lastname": "TestDate3",
+      "title": "TestDate3",
+      "phonenr": "234234",
+      "company": "Vince",
+      "system": [
+        "Gimli"
+      ],
+      "date": "2023-1-16 10:25:23",
+      "id": 33
+    },
+    {
+      "firstname": "Hej",
+      "lastname": "hej",
+      "title": "hej",
+      "phonenr": "12312323",
+      "company": "Rg19",
+      "system": [
+        "Sauron"
+      ],
+      "date": "2023-1-16 11:21:37",
+      "id": 34
+    },
+    {
+      "firstname": "Test",
+      "lastname": "Test",
+      "title": "Test",
+      "phonenr": "123456789",
+      "company": "Rg19",
+      "department": "consulting",
+      "system": [
         "Pippin"
       ],
-      "id": 21
+      "date": "2023-1-16 11:41:16",
+      "id": 35
+    },
+    {
+      "firstname": "Test",
+      "lastname": "Test",
+      "title": "Test",
+      "phonenr": "00000000000000",
+      "company": "Min kommun Energi AB",
+      "department": "access-management",
+      "system": [
+        "Frodo"
+      ],
+      "date": "2023-1-16 15:1:12",
+      "id": 36
+    },
+    {
+      "firstname": "Test1",
+      "lastname": "Test1",
+      "title": "Test1",
+      "phonenr": "000000000",
+      "company": "Zitac Consulting",
+      "department": "company",
+      "system": [
+        "Arwen"
+      ],
+      "date": "2023-1-16 15:1:54",
+      "id": 37
+    },
+    {
+      "firstname": "Test2",
+      "lastname": "Test2",
+      "title": "Test2",
+      "phonenr": "111111111111111",
+      "company": "Bygg- och miljöförvaltning",
+      "department": "access-management",
+      "system": [
+        "Boromir"
+      ],
+      "date": "2023-1-16 15:5:9",
+      "id": 38
+    },
+    {
+      "firstname": "Test2",
+      "lastname": "Test2",
+      "title": "Test2",
+      "phonenr": "123456789",
+      "company": "Min kommun Fastigheter AB",
+      "department": "access-management",
+      "system": [
+        "Arwen"
+      ],
+      "date": "2023-1-16 15:16:49",
+      "id": 39
+    },
+    {
+      "firstname": "Test3",
+      "lastname": "Test3",
+      "title": "Test3",
+      "phonenr": "123456789",
+      "company": "Min kommun Fastigheter AB",
+      "department": "company",
+      "system": [
+        "Arwen"
+      ],
+      "date": "2023-1-16 15:18:2",
+      "id": 40
     }
   ]
 }

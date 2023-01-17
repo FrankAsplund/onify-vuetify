@@ -1,22 +1,25 @@
 <template>
-    <div class="d-flex align-center flex-row mx-4 pa-2">
-      <v-card variant="tonal" class="mt-5 mb-8 rounded-sm" width="400">
+  <v-app class="mx-12 my-2 pa-6 rounded-m bg-grey-darken-4 align-items">
+      <div class="d-flex align-center flex-row mx-4 pa-2 justify-center">
+      <v-card variant="tonal" class="rounded-sm" width="500">
         <v-card-title>Skapa användare</v-card-title>
       <v-card-text>
         Här kan du skapa dina egna användare, 
         komplett med namn, titel, företag, 
-        och allt annat du skulle tänka dig!
+        och allt annat du skulle tänka dig! <br>
+        OBS: Alla fält är obligatoriska att fylla i.
       </v-card-text> 
       </v-card>
-    </div>
+      </div>
 
-    <div variant="outlined">
-        <v-form @submit.prevent="createUser">
+<div variant="outlined">
+<v-form @submit.prevent="createUser" ref="form" >
     <v-container fluid>
-      <v-row variant="outlined">
+      <v-container>
+      <v-row variant="outlined"  class="justify-center">
         <v-col
           cols="6"
-          md="4"
+          md="6"
         >
           <v-text-field
             :rules="nameRules"
@@ -29,7 +32,7 @@
 
         <v-col
           cols="6"
-          md="4"
+          md="6"
         >
           <v-text-field
             v-model="formData.lastname"
@@ -41,10 +44,10 @@
         </v-col>
       </v-row>
 
-        <v-row>
+        <v-row class="justify-center">
         <v-col
           cols="6"
-          md="4"
+          md="6"
         >
         <v-text-field
             v-model="formData.title"
@@ -57,7 +60,7 @@
 
           <v-col
           cols="6"
-          md="4"
+          md="6"
         >
         <v-text-field
             v-model="formData.phonenr"
@@ -71,8 +74,8 @@
     </v-container>
 
       <v-container fluid>
-    <v-row>
-      <v-col cols="6" md="4">
+    <v-row class="justify-center">
+      <v-col cols="6" md="6">
         <v-autocomplete
     label="Company"
     :items= "companies"
@@ -84,23 +87,23 @@
   ></v-autocomplete>
       </v-col>
 
-      <v-col cols="6">
+      <v-col cols="6" md="6">
         <v-autocomplete
     label="Department"
     :items="company.tag"
-    v-model="tag"
+    v-model="formData.department"
     item-title="tag"
     density="compact"
-    
     return-object
   ></v-autocomplete>
       </v-col>
+    </v-row>
 
-
-  <v-col cols="6">
+      <v-row class="justify-center">
+  <v-col cols="6" md="6">
         <v-autocomplete
     label="Select a system you're authorized in"
-    :items= "items"
+    :items= "systems"
     v-model="formData.system"
     item-title="name"
     density="compact"
@@ -108,18 +111,20 @@
   ></v-autocomplete>
 
       </v-col>
-      <v-col cols="6">
+      <v-col cols="6" md="6">
         <v-combobox
           v-model="formData.system"
           label="Authorized Systems"
           chips
           multiple
           readonly
+          density="compact"
         ></v-combobox>
       </v-col>
     </v-row>
   </v-container>
 
+  <v-row class="justify-center">
       <v-btn
         color="success"
         class="mr-4"
@@ -142,9 +147,12 @@
       >
         Reset Validation
       </v-btn>
-    </v-form>
-</div>
-  </template>
+  </v-row>
+          </v-container>
+        </v-form>
+      </div>
+  </v-app>
+</template>
 
 <script>
   export default {
@@ -157,21 +165,19 @@
         company: "",
         department: "",
         system: null,
+        date: "",
       },
 
-        /* systems: [], */
-        items: [],
+        systems: [],
         companies: [],
-        tag: [],
         company: {
           name: "",
-          tag: "",
         },
 
       valid: false,
       nameRules: [
-        v => !!v || 'Name is required',
-        v => v.length <= 10 || 'Name must be less than 10 characters',
+        v => !!v || 'This field is required',
+        v => v.length <= 20 || 'Name must be less than 20 characters',
       ],
       checkbox: false,
     }),
@@ -179,10 +185,19 @@
     methods: {
 
       async createUser() {
+
+        // The date the user was created
+        let currentDate = new Date();
+        let date = currentDate.getFullYear()+'-'+(currentDate.getMonth()+1)+'-'+currentDate.getDate();
+        let time = currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds();
+        let dateTime = date+' '+time;
+
+      console.log("Denna användare skapades: ", dateTime);
+
       const formData = {
         ...this.formData,
         company: this.company.name,
-        department: this.company.tag,
+        date: dateTime,
       };
       try {
         // send POST request to create object endpoint
@@ -197,13 +212,16 @@
         if (!response.ok) {
           throw new Error(`Error ${response.status}`);
         }
+        console.log(response);
         // object was successfully created, do something with the response data
       } catch (error) {
         // there was an error creating the object
         console.log(error);
       }
-      /* console.log(response); */
-      document.forms[0].reset();
+
+      /* document.forms[0].reset(); */
+      this.$refs.form.reset();
+      console.log(this.formData);
       window.scrollTo(0, 0);
     },
 
@@ -221,7 +239,7 @@
         const data = await response.json();
 
         for (let i = 0; i < data.records.length; i++) {
-            this.items[i] = data.records[i].name;
+            this.systems[i] = data.records[i].name;
         }
           console.log(data.records);
       },
@@ -240,13 +258,7 @@ async getAllCompanies() {
         const data = await response.json();
         this.companies = data.records;
 
-        console.log(data.records.tag);
         console.log(data.records);
-
-        /* for (let i = 0; i < data.records.length; i++) {
-            this.tags[i] = data.records[i].tag;
-            console.log(data.records[i].tag);
-        } */
 },
 
       async validate () {

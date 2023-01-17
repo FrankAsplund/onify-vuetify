@@ -8,7 +8,6 @@
           width="145"
           height="50"
         />
-        <v-app-bar-title>Onify forms</v-app-bar-title>
   
         <div class="router">
           <v-btn variant="tonal" class="mx-2">
